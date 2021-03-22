@@ -18,8 +18,4 @@ public class CreateUserDto {
 
     @NotNull
     private String roles;
-
-    public String getFirstName() {
-        return firstName;
-    }
 }

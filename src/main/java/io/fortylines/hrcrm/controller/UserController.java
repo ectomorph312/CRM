@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -15,23 +16,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}/profile")
+    @GetMapping("/{id}")
     public ReadUserDto getUserProfile(@PathVariable Long id) {
         return userService.getUserProfile(id);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ReadUserDto createNewUser(@RequestBody @Validated CreateUserDto createUserDto) {
         return userService.createNewUser(createUserDto);
     }
 
     @PutMapping("/{id}")
     public ReadUserDto update(@PathVariable Long id, @RequestBody @Validated UpdateUserDto updateUserDto) {
-        System.out.println(updateUserDto);
         return userService.update(id, updateUserDto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.delete(id);
     }
