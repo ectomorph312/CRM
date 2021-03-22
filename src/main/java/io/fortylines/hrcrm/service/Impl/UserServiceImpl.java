@@ -3,18 +3,27 @@ package io.fortylines.hrcrm.service.Impl;
 import io.fortylines.hrcrm.dto.CreateUserDto;
 import io.fortylines.hrcrm.dto.ReadUserDto;
 import io.fortylines.hrcrm.dto.UpdateUserDto;
+import io.fortylines.hrcrm.entity.Role;
 import io.fortylines.hrcrm.entity.User;
 import io.fortylines.hrcrm.mapper.UserMapper;
 import io.fortylines.hrcrm.repository.UserRepository;
 import io.fortylines.hrcrm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -41,13 +50,20 @@ public class UserServiceImpl implements UserService {
     public ReadUserDto createNewUser(CreateUserDto createUserDto) {
         User user = new User();
         String username = (createUserDto.getFirstName() + createUserDto.getLastName()).toLowerCase();
-        String role = createUserDto.getRoles();
+        String role = createUserDto.getRoles().toUpperCase();
 
         user.setFirstName(createUserDto.getFirstName());
         user.setLastName(createUserDto.getLastName());
         user.setPassword(createUserDto.getPassword());
+        user.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
         user.setUsername(username.replaceAll("\\s+",""));
         user.setActive(true);
+
+        if (role.equals("HR") || role.equals("ADMIN") || role.equals("HEADOFDEPARTMENT")) {
+            user.setRoles(Collections.singleton(Role.valueOf(role)));
+        } else {
+            throw new IllegalArgumentException("Role not found");
+        }
 
         User savedUser = userRepository.save(user);
         return userMapper.toReadUserDto(savedUser);
@@ -56,22 +72,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public ReadUserDto update(Long id, UpdateUserDto updateUserDto) {
         User user = getById(id);
-        String  deactivate = updateUserDto.getActive();
-
-        if (deactivate.equals("true"))
-            user.setActive(false);
-
-        if (deactivate.equals("false"))
-            user.setActive(true);
+        String deactivate = updateUserDto.getActive();
+        String newRole = updateUserDto.getRoles().toUpperCase();
 
         user.setFirstName(updateUserDto.getFirstName());
         user.setLastName(updateUserDto.getLastName());
         user.setUsername(updateUserDto.getUsername());
         user.setPassword(updateUserDto.getPassword());
-//        user.setRoles(updateUserDto.getRoles());
+        user.setUsername(updateUserDto.getUsername());
+
+        if (deactivate.equalsIgnoreCase("true") || deactivate.equalsIgnoreCase("false"))
+            user.setActive(Boolean.parseBoolean(deactivate));
+
+        Set<String> roles = Arrays.stream(Role.values())
+                .map(Role::getAuthority)
+                .collect(Collectors.toSet());
+
+        for (String key : roles) {
+            if (key.equalsIgnoreCase(newRole)) {
+                user.getRoles().clear();
+                user.getRoles().add(Role.valueOf(newRole));
+            }
+        }
 
         User updateUser = userRepository.save(user);
-
         return userMapper.toReadUserDto(updateUser);
     }
 
@@ -79,8 +103,6 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
-
-
 }
 
 

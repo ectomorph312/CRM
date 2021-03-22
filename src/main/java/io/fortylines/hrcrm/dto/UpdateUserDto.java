@@ -1,11 +1,8 @@
 package io.fortylines.hrcrm.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 public class UpdateUserDto {
@@ -26,5 +23,5 @@ public class UpdateUserDto {
     private String active;
 
     @NotNull
-    private Set roles;
+    private String roles;
 }
