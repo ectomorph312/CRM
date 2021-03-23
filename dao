@@ -1,0 +1,24 @@
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{0}: reset: moving to HEAD@{17}
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{1}: 
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{2}: reset: moving to HEAD
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{4}: checkout: moving from main to dev
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{5}: reset: moving to HEAD
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{6}: checkout: moving from dev to main
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{7}: reset: moving to HEAD@{10}
+[33m95d206f[m HEAD@{8}: reset: moving to HEAD@{1}
+[33m95d206f[m HEAD@{9}: checkout: moving from dev to dev
+[33m95d206f[m HEAD@{10}: reset: moving to HEAD
+[33m95d206f[m HEAD@{11}: revert: Revert "wrote DTO for User and CRUD controllers"
+[33m7450b0d[m HEAD@{12}: reset: moving to 7450b0d
+[33m2d7e25f[m HEAD@{13}: commit: finalized crud and connected Bcrypt
+[33m7450b0d[m HEAD@{14}: commit: wrote DTO for User and CRUD controllers
+[33mcc7975c[m HEAD@{15}: checkout: moving from master to dev
+[33mb344bd7[m HEAD@{16}: pull --progress origin: Fast-forward
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{17}: reset: moving to HEAD
+[33m1a6070b[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m HEAD@{18}: commit: remade with maven on the gradle
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{19}: checkout: moving from dev to master
+[33mcc7975c[m HEAD@{20}: commit: remade with maven on the gradle
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{21}: checkout: moving from master to dev
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{22}: checkout: moving from main to master
+[33m718dd3d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{23}: commit (initial): Описал сущности и написал миграции к ним
